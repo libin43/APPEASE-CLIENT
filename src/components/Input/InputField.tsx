@@ -3,7 +3,7 @@ import React from 'react'
 interface InputFieldProps {
     name: string;
     value: string;
-    onChange: (value: string) => void
+    onChange: (value: string, name: string) => void
 }
 
 export const InputField: React.FC<InputFieldProps> = ({name, value, onChange}) => {
@@ -16,7 +16,7 @@ export const InputField: React.FC<InputFieldProps> = ({name, value, onChange}) =
         type="text"
         name={name}
         value={value}
-        onChange={(e)=> onChange(e.target.value)}
+        onChange={(e)=> onChange(e.target.value, name)}
          />
     </div>
     </>
