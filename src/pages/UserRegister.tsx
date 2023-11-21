@@ -1,7 +1,10 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { InputField } from "../components/Input/InputField"
 import { Button } from "../components/Button/Button"
 import { useForm } from "../hooks/useForm"
 import { userRegisterAPI } from "../api/user"
+import { Spinner } from "../components/Loader/Spinner"
 
 export const UserRegister = () => {
 
@@ -19,10 +22,13 @@ export const UserRegister = () => {
         isSubmit,
     } = useForm();
 
+    const [loading, setLoading] = useState<boolean>(false)
+    const navigate = useNavigate()
+
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
         if(isSubmit()){
-            console.log('axios call');
+            setLoading(true)
             try{
                 const body = {
                     "firstName": firstName,
@@ -31,15 +37,18 @@ export const UserRegister = () => {
                     "password": password,
                 }
                 const res = await userRegisterAPI(body)
-                console.log(res, 'RESPONSE');
-                // clearForm()
+                if(res.status === 200){
+                    clearForm()
+                    navigate('/login')
+                }
                 
             } catch(error) {
                 console.log(error);
                 
-            }
-        }
-        
+            } finally {
+                setLoading(false);
+              }
+        } 
     }
 
     return (
@@ -83,7 +92,9 @@ export const UserRegister = () => {
                         <span className="text-red-500">{passwordError}</span>
 
                         <div>
-                            <Button type="submit" name="Submit"  />
+                            {
+                                loading ? <Spinner/> : <Button type="submit" name="Submit"/>
+                            }
                         </div>
                     </form>
                 </div>

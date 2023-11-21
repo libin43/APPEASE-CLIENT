@@ -2,15 +2,15 @@ import { useState } from "react"
 import { nameRegex, emailRegex, passwordRegex } from "../utils/validations"
 
 export const useForm = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [firstName, setFirstName] = useState<string>('')
+    const [lastName, setLastName] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
     //error states
-    const [firstNameError, setFirstNameError] = useState('')
-    const [lastNameError, setLastNameError] = useState('')
-    const [emailError, setEmailError] = useState('')
-    const [passwordError, setPasswordError] = useState('')
+    const [firstNameError, setFirstNameError] = useState<string>('')
+    const [lastNameError, setLastNameError] = useState<string>('')
+    const [emailError, setEmailError] = useState<string>('')
+    const [passwordError, setPasswordError] = useState<string>('')
     //validate fns
     const validateFirstName = (value: string) => {
         return nameRegex.test(value);
@@ -65,7 +65,7 @@ export const useForm = () => {
         setPasswordError('')
     };
 
-    const isSubmit = () => {
+    const isSubmit = ():boolean => {
         if(!firstNameError&&!lastNameError&&!emailError&&!passwordError&&firstName&&lastName&&email&&password){
             return true
         }
