@@ -7,6 +7,7 @@ import './App.css'
 // import { UserAppointment } from './pages/UserAppointment';
 
 import { UserRoutes } from './routes/UserRoutes';
+import { IndexPage } from './pages/IndexPage';
 
 
 export const App = () => {
@@ -15,6 +16,7 @@ export const App = () => {
   return (
     <Router>
       <Routes>
+       <Route path="/" element={<IndexPage/>}/>
         <Route path="/register" element={<UserRegister/>}/>
         <Route path="/signin" element={<UserLogin/>}/>
         <Route path="/user/*" element={<UserRoutes/>}/>
