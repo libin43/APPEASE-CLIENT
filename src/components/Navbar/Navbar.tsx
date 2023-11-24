@@ -7,6 +7,9 @@ export const Navbar = () => {
     const handleToggle = () => {
         setToggle(!toggle)
     }
+    const logout = () => {
+        window.location.href ="/signin"
+    }
     const userName = useAppSelector(state => state.user.firstName)
     return (
         <>
@@ -43,7 +46,9 @@ export const Navbar = () => {
                         <ul className="personal-container flex gap-5 text-xl">
                             {/* <li className="menu-item">Notification</li> */}
                             <li className="menu-item hover:text-slate-400">{userName}</li>
-                            <li className="menu-item hover:text-slate-400">Logout</li>
+                            <li className="menu-item ">
+                                <button className='hover:text-slate-400' onClick={logout}>Logout</button>
+                            </li>
                         </ul>
                     </div>
                 </div>
