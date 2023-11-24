@@ -88,7 +88,6 @@ export const UserAppointment = () => {
         <label className="block text-lg font-semibold mb-1">Select Date:</label>
         <DatePicker
           showIcon
-          closeOnScroll={true}
           minDate={new Date()}
           selected={selectedDate}
           onChange={handleDateChange}
