@@ -1,16 +1,18 @@
 import React,{useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { InputField } from '../components/Input/InputField'
 import { userLoginAPI, AxiosError } from '../api/user'
 import { Button } from '../components/Button/Button'
 import { useDispatchRole } from '../hooks/useDispatchRole'
 import { showToast } from '../utils/toast'
-import { Toaster } from 'react-hot-toast';
+import { Spinner } from '../components/Loader/Spinner'
 
 
 export const UserLogin = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+
+    const [loading, setLoading] = useState<boolean>(false)
 
     const navigate = useNavigate();
     const {setRoleAndInfo} = useDispatchRole();
@@ -23,11 +25,11 @@ export const UserLogin = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if(email && password){
-            console.log('call axios');
             const body = {
                 "email": email,
                 "password": password,
             }
+            setLoading(true)
             try{
                 const res = await userLoginAPI(body)
                 switch(res.status){
@@ -52,29 +54,42 @@ export const UserLogin = () => {
                         break;
                 }
                 
-            }
+            } finally {
+                setLoading(false);
+              }
+        } else {
+            showToast('Input fields cannot be empty', 'error')
         }
     }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <><Toaster/></>
-      <div className="max-w-md w-full p-6 bg-white shadow-md rounded-md">
-        <h2 className="text-2xl font-semibold mb-6">Login</h2>
+      <div className="max-w-xl w-full p-6 bg-white shadow-md rounded-md">
+        <h1 className="text-6xl mb-5 text-center  text-indigo-950">Appointment Ease</h1>
+        <h1 className="text-4xl mb-5 text-center">Login</h1>
         <form onSubmit={(event) => handleSubmit(event)}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-600 text-sm font-medium mb-2">
+            <label htmlFor="email" className="block text-gray-600 text-xl font-medium mb-2">
               Email
             </label>
             <InputField name="email" value={email} onChange={(value) => setEmail((prev) => (value !== prev ? value: prev))}/>
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-600 text-sm font-medium mb-2">
+            <label htmlFor="password" className="block text-gray-600 text-xl font-medium mb-2">
               Password
             </label>
             <InputField name="password" value={password} onChange={(value) => setPassword((prev) => (value !== prev ? value: prev))}/>
           </div>
-          <Button type="submit" name="Login"/>
+          <div className="text-center">
+          {
+            loading ? <Spinner/> : <Button type="submit" style="bg-blue-600 hover:bg-blue-900 text-white w-[50%] h-10 rounded-md" name="Login"/>
+          }
+          </div>
         </form>
+        <div className="mt-10">
+            <Link to={'/register'}>
+            <span className="text-blue-800">Dont have an account? Signup</span>
+            </Link>
+        </div>
       </div>
     </div>
   )

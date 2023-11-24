@@ -12,7 +12,7 @@ export const InputField: React.FC<InputFieldProps> = ({name, value, onChange}) =
     <>
     <div className="input-container">
         <input
-        className="px-1 bg-slate-300 border border-black rounded w-[50%] h-10"
+        className="px-1 focus:border-blue-800 bg-slate-300 border border-black rounded w-[100%] h-10 outline-none"
         type="text"
         name={name}
         value={value}

@@ -1,6 +1,5 @@
 
 import { Navbar } from '../components/Navbar/Navbar'
-import { Link } from 'react-router-dom'
 
 export const UserHome = () => {
     
@@ -8,8 +7,7 @@ export const UserHome = () => {
     <>
     <Navbar/>
     <div>
-        Homepage
-        <Link to={'/user/appointment'}>Go to</Link>
+       <h1 className="xl:text-8xl text-4xl text-center animate-pulse">Welcome Users !</h1>
     </div>
     </>
   )
