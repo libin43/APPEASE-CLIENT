@@ -4,7 +4,7 @@ if(import.meta.env.MODE === 'production'){
     BASE_URL = 'https://appease-server.onrender.com'
 }
 else{
-    BASE_URL = 'https://appease-server.onrender.com'
+    BASE_URL = 'https://appease-server.onrender.com/api/v1'
 }
 
 export  {BASE_URL}
