@@ -60,6 +60,7 @@ export const UserAppointment = () => {
             console.log(res);
             if(res.status === 200){
                 showToast(`${res.data?.message}`)
+                clearState()
             }
             
         } catch(error) {
